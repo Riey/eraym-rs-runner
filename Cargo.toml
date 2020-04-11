@@ -1,12 +1,8 @@
 [package]
-name = "eraym-rs-runner"
+name = "eraym-runner"
 version = "0.1.0"
 authors = ["Riey <creeper844@gmail.com>"]
 edition = "2018"
-
-[[bin]]
-name = "eraym-runner"
-path = "src/main.rs"
 
 [profile.release]
 lto = "thin"
