@@ -17,6 +17,8 @@ async fn main() {
 
     let port = args.port;
 
+    println!("Start server on http://localhost:{}", port);
+
     let file = warp::fs::dir(".").and(warp::get());
 
     let script = warp::path!("save")
