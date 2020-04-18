@@ -1,9 +1,6 @@
 use bytes::Bytes;
-use warp::{
-    http::StatusCode,
-    Filter,
-};
 use structopt::StructOpt;
+use warp::{http::StatusCode, Filter};
 
 #[derive(StructOpt)]
 struct Args {
@@ -24,15 +21,12 @@ async fn main() {
     let script = warp::path!("save")
         .and(warp::post())
         .and(warp::body::bytes())
-        .map(|bytes: Bytes| {
-            match std::fs::write("sav.yml", &bytes) {
-                Ok(_) => StatusCode::OK,
-                Err(_) => StatusCode::INTERNAL_SERVER_ERROR,
-            }
+        .map(|bytes: Bytes| match std::fs::write("sav.yml", &bytes) {
+            Ok(_) => StatusCode::OK,
+            Err(_) => StatusCode::INTERNAL_SERVER_ERROR,
         });
 
     let routes = file.or(script);
 
     warp::serve(routes).run(([0, 0, 0, 0], port)).await;
 }
-
